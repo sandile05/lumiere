@@ -1221,7 +1221,7 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
 ══════════════════════════ -->
 <div class="full-break">
   <div class="img-slot" data-parallax="0.4"
-       style="--img:url('https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1400&q=80');--fallback:linear-gradient(160deg,#C89090 0%,#8C5555 40%,#4A2828 100%);position:absolute;inset:0;">
+       style="--img:url('https://images.unsplash.com/photo-1487412947147-5cebf100d293?auto=format&fit=crop&w=1600&q=80');--fallback:linear-gradient(160deg,#C89090 0%,#8C5555 40%,#4A2828 100%);position:absolute;inset:0;">
     <div class="img-layer"></div>
     <div class="img-overlay"></div>
   </div>
@@ -1763,27 +1763,47 @@ document.querySelectorAll('.img-slot').forEach(slot=>{
 /* Pass 2 — register parallax slots */
 const parallaxSlots = [];
 document.querySelectorAll('.img-slot[data-parallax]').forEach(slot=>{
-  const layer=slot.querySelector('.img-layer');
+  const layer = slot.querySelector('.img-layer');
   if(!layer) return;
-  parallaxSlots.push({slot,layer,speed:parseFloat(slot.dataset.parallax)||0.2});
+  parallaxSlots.push({ slot, layer, speed: parseFloat(slot.dataset.parallax) || 0.2 });
 });
 
-function updateParallax(){
-  parallaxSlots.forEach(({slot,layer,speed})=>{
-    const rect=slot.getBoundingClientRect();
-    if(rect.bottom<0||rect.top>window.innerHeight) return;
-    // How far the slot centre is from the viewport centre
-    const centre=rect.top+rect.height/2-window.innerHeight/2;
-    const raw=centre*speed;
-    // The img-layer has inset:-28% 0 — that's 28% of the slot's height
-    // on each side as overflow. Clamp so we never exceed that buffer.
-    const maxShift=slot.offsetHeight*0.26;
-    const clamped=Math.max(-maxShift,Math.min(maxShift,raw));
-    layer.style.transform=`translateY(${clamped}px)`;
+/* Set initial positions immediately — no jump on first scroll */
+function getShift(slot, speed) {
+  const rect = slot.getBoundingClientRect();
+  const centre = rect.top + rect.height / 2 - window.innerHeight / 2;
+  const raw = centre * speed;
+  const maxShift = slot.offsetHeight * 0.20;
+  return Math.max(-maxShift, Math.min(maxShift, raw));
+}
+
+/* Apply transforms using translate3d for GPU compositing */
+function applyParallax() {
+  parallaxSlots.forEach(({ slot, layer, speed }) => {
+    const rect = slot.getBoundingClientRect();
+    if (rect.bottom < -100 || rect.top > window.innerHeight + 100) return;
+    const shift = getShift(slot, speed);
+    layer.style.transform = `translate3d(0, ${shift}px, 0)`;
   });
 }
-window.addEventListener('scroll',updateParallax,{passive:true});
-updateParallax(); // initial call
+
+/* Pre-position all layers before first paint */
+applyParallax();
+
+/* rAF loop — scroll sets a dirty flag, rAF does the actual DOM write */
+let rafPending = false;
+window.addEventListener('scroll', () => {
+  if (!rafPending) {
+    rafPending = true;
+    requestAnimationFrame(() => {
+      applyParallax();
+      rafPending = false;
+    });
+  }
+}, { passive: true });
+
+/* Also update on resize in case layout shifts */
+window.addEventListener('resize', applyParallax, { passive: true }); // initial call
 
 /* ── SERVICE TILT ── */
 document.querySelectorAll('.srv-panel').forEach(p=>{

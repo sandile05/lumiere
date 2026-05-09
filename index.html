@@ -206,9 +206,7 @@
         opacity: 0;
         transition:
           transform 0.8s var(--ease),
-          opacity 0.8s var(--ease),
-          background 0.4s,
-          padding 0.35s;
+          opacity 0.8s var(--ease);
       }
       #nav.show {
         transform: translateY(0);
@@ -220,6 +218,7 @@
         padding-top: 16px;
         padding-bottom: 16px;
         border-bottom: 1px solid var(--hairline);
+        transition: none;
       }
       .nav-logo {
         font-family: var(--serif);
@@ -2403,19 +2402,25 @@
     <!-- ══════════════════════════
      HERO
 ══════════════════════════ -->
-    <!-- <section id="hero">
-  <div class="hero-bg-layer"></div>
-  <div class="hero-vignette"></div>
-  <div class="hero-body">
-    <p class="hero-eyebrow">A Curated Collective of Beauty Specialists</p>
-    <h1 class="hero-title">LUMIÈRE<br/><em>Collective</em></h1>
-    <p class="hero-sub">Where artistry becomes ritual, and beauty becomes legacy.</p>
-    <a class="hero-scroll-btn" href="#visual-strip" onclick="smoothTo('visual-strip',event)">
-      <div class="hero-scroll-line"></div>
-      <span class="hero-scroll-label">Explore</span>
-    </a>
-  </div>
-</section> -->
+    <section id="hero">
+      <div class="hero-bg-layer"></div>
+      <div class="hero-vignette"></div>
+      <div class="hero-body">
+        <p class="hero-eyebrow">A Curated Collective of Beauty Specialists</p>
+        <h1 class="hero-title">LUMIÈRE<br /><em>Collective</em></h1>
+        <p class="hero-sub">
+          Where artistry becomes ritual, and beauty becomes legacy.
+        </p>
+        <a
+          class="hero-scroll-btn"
+          href="#visual-strip"
+          onclick="smoothTo('visual-strip', event)"
+        >
+          <div class="hero-scroll-line"></div>
+          <span class="hero-scroll-label">Explore</span>
+        </a>
+      </div>
+    </section>
 
     <!-- ══════════════════════════
      FIRST VISUAL STRIP

@@ -596,16 +596,10 @@
       }
 
       .hero-scroll-line {
-  width:1px; height:52px;
-  background:linear-gradient(to bottom, var(--rose), transparent);
-  animation:lineFlow 2s ease-in-out 2.8s infinite;
-}
-@keyframes lineFlow {
-  0%   { transform:scaleY(0); transform-origin:top;    opacity:0; }
-  45%  { transform:scaleY(1); transform-origin:top;    opacity:1; }
-  55%  { transform:scaleY(1); transform-origin:bottom; opacity:1; }
-  100% { transform:scaleY(0); transform-origin:bottom; opacity:0; }
-}
+        width: 1px;
+        height: 52px;
+        background: linear-gradient(to bottom, var(--rose), transparent);
+      }
 
       .hero-scroll-label {
         font-family: var(--sans);
@@ -3587,7 +3581,7 @@
       window.addEventListener("load", () =>
         setTimeout(
           () => document.getElementById("loader").classList.add("out"),
-          1250,
+          1180,
         ),
       );
 

@@ -55,7 +55,7 @@
 }
 
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
+html { }
 body {
   background: var(--charcoal);
   color: var(--chalk);
@@ -327,33 +327,25 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
   90%{transform:scaleY(0);transform-origin:bottom;opacity:0}
 }
 
-/* ═══════════════════════════════
-   IMAGE SLOT — universal parallax card
-   Replace --img with your photo URL
-═══════════════════════════════ */
+/* IMAGE SLOT */
 .img-slot {
   position:relative; overflow:hidden;
   background-color:var(--char-3);
 }
-/* The actual image layer — parallaxed by JS */
 .img-slot .img-layer {
-  position:absolute; inset:-22% 0;
+  position:absolute; inset:0;
   background-image:var(--img, none);
   background-size:cover; background-position:center;
-  will-change:transform;
 }
-/* Pink gradient fallback / overlay */
 .img-slot .img-overlay {
   position:absolute; inset:0;
   background:var(--fallback, linear-gradient(145deg,#EDD9D6 0%,#C4969A 50%,#8C5555 100%));
-  opacity:1; transition:opacity .5s;
+  opacity:1; transition:opacity .6s ease;
 }
-/* When a real image is loaded, fade out the fallback */
 .img-slot.has-img .img-overlay { opacity:.28; }
-/* Dark overlay for text legibility */
 .img-slot .img-dim {
   position:absolute; inset:0; z-index:2;
-  background:linear-gradient(to top, rgba(19,17,18,.55) 0%, rgba(19,17,18,.1) 60%, transparent 100%);
+  background:linear-gradient(to top, rgba(19,17,18,.6) 0%, rgba(19,17,18,.1) 55%, transparent 100%);
 }
 .img-slot .img-caption {
   position:absolute; bottom:0; left:0; right:0; z-index:3;
@@ -1032,10 +1024,6 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
 .ft-bottom p { font-family:var(--sans); font-size:.62rem; color:var(--smoke); letter-spacing:.1em; }
 .ft-logo { font-family:var(--serif); font-size:.95rem; letter-spacing:.22em; color:rgba(26,22,24,.22); text-transform:uppercase; }
 
-/* ── SCROLL REVEAL ── */
-.r { opacity:0; transform:translateY(28px); transition:opacity .9s var(--ease),transform .9s var(--ease); }
-.r.v { opacity:1; transform:translateY(0); }
-.r.d1 { transition-delay:.14s; } .r.d2 { transition-delay:.28s; } .r.d3 { transition-delay:.42s; }
 
 /* ═══════════════════════════════
    RESPONSIVE
@@ -1178,7 +1166,7 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
 ══════════════════════════ -->
 <div id="visual-strip">
 
-  <div class="img-slot" data-parallax="0.25"
+  <div class="img-slot"
        style="--img:url('https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1400&q=80');--fallback:linear-gradient(160deg,#E8C4C0 0%,#C08585 45%,#7A4545 100%)">
     <div class="img-layer"></div>
     <div class="img-overlay"></div>
@@ -1186,7 +1174,7 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
     <div class="img-caption"><h3>Nail Artistry</h3><span>Sculpted · Painted · Perfected</span></div>
   </div>
 
-  <div class="img-slot" data-parallax="0.35"
+  <div class="img-slot"
        style="--img:url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1200&q=80');--fallback:linear-gradient(135deg,#F0D5D3 0%,#D4A0A0 40%,#9A6060 100%)">
     <div class="img-layer"></div>
     <div class="img-overlay"></div>
@@ -1194,7 +1182,7 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
     <div class="img-caption"><h3>Lash & Brow</h3><span>Architecture · Enhancement</span></div>
   </div>
 
-  <div class="img-slot" data-parallax="0.2"
+  <div class="img-slot"
        style="--img:url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1400&q=80');--fallback:linear-gradient(145deg,#EDD0CC 0%,#C89090 45%,#885050 100%)">
     <div class="img-layer"></div>
     <div class="img-overlay"></div>
@@ -1209,9 +1197,9 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
 ══════════════════════════ -->
 <section id="manifesto">
   <div class="manifesto-wrap" style="max-width:780px">
-    <span class="sec-label rose r">The Studio</span>
-    <h2 class="mfst-q r d1">Beauty is not a service.<br/>It is a <em>conversation</em><br/>between artisan and soul.</h2>
-    <p class="mfst-sub r d2">Lumière Collective is a curated ensemble of specialist artists, each a master of their craft — choreographing complete beauty experiences around your individuality.</p>
+    <span class="sec-label rose">The Studio</span>
+    <h2 class="mfst-q">Beauty is not a service.<br/>It is a <em>conversation</em><br/>between artisan and soul.</h2>
+    <p class="mfst-sub">Lumière Collective is a curated ensemble of specialist artists, each a master of their craft — choreographing complete beauty experiences around your individuality.</p>
   </div>
 </section>
 
@@ -1220,7 +1208,7 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
      Add image: data-img style="--img:url('photos/hero-break.jpg')"
 ══════════════════════════ -->
 <div class="full-break">
-  <div class="img-slot" data-parallax="0.4"
+  <div class="img-slot"
        style="--img:url('https://images.unsplash.com/photo-1487412947147-5cebf100d293?auto=format&fit=crop&w=1600&q=80');--fallback:linear-gradient(160deg,#C89090 0%,#8C5555 40%,#4A2828 100%);position:absolute;inset:0;">
     <div class="img-layer"></div>
     <div class="img-overlay"></div>
@@ -1237,10 +1225,10 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
 <section id="collective">
   <div class="coll-head">
     <div>
-      <span class="sec-label smoke r">Our Specialists</span>
-      <h2 class="r d1">Four disciplines.<br/><em>One</em> unified vision.</h2>
+      <span class="sec-label smoke">Our Specialists</span>
+      <h2 class="">Four disciplines.<br/><em>One</em> unified vision.</h2>
     </div>
-    <p class="r d2">Each artist is a master of their discipline. Together we deliver seamless, curated beauty experiences.</p>
+    <p class="">Each artist is a master of their discipline. Together we deliver seamless, curated beauty experiences.</p>
   </div>
   <div class="spec-item r" onclick="toBook('nail')">
     <span class="spec-num">01</span>
@@ -1267,12 +1255,12 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
 <!-- DUAL BREAK (2 images side by side)
      Add images via --img variable -->
 <div class="dual-break">
-  <div class="img-slot" data-parallax="0.22"
+  <div class="img-slot"
        style="--img:url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1200&q=80');--fallback:linear-gradient(135deg,#F0D0CC 0%,#D09090 50%,#905555 100%)">
     <div class="img-layer"></div><div class="img-overlay"></div><div class="img-dim"></div>
     <div class="img-caption"><h3>Soft Glam</h3><span>Editorial Beauty</span></div>
   </div>
-  <div class="img-slot" data-parallax="0.3"
+  <div class="img-slot"
        style="--img:url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=80');--fallback:linear-gradient(155deg,#EAC8C4 0%,#BF8888 50%,#7A4A4A 100%)">
     <div class="img-layer"></div><div class="img-overlay"></div><div class="img-dim"></div>
     <div class="img-caption"><h3>Brow Architecture</h3><span>Precision Craft</span></div>
@@ -1285,9 +1273,9 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
 <section id="services">
 
   <div class="srv-hero-head">
-    <span class="sec-label fog r">Rituals &amp; Experiences</span>
-    <h2 class="r d1">Not services.<br/><em>Experiences</em><br/>crafted around you.</h2>
-    <p class="r d2">Every offering is intentional, sensory, and tailored entirely to who you are becoming.</p>
+    <span class="sec-label fog">Rituals &amp; Experiences</span>
+    <h2 class="">Not services.<br/><em>Experiences</em><br/>crafted around you.</h2>
+    <p class="">Every offering is intentional, sensory, and tailored entirely to who you are becoming.</p>
   </div>
 
   <!-- ① Nail — light -->
@@ -1308,7 +1296,7 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
       </div>
     </div>
     <div class="srv-visual-col">
-      <div class="img-slot" data-parallax="0.18" style="position:absolute;inset:0;--img:url('https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=900&q=80');--fallback:linear-gradient(145deg,#F0D5D3 0%,#D4A5A0 50%,#A07070 100%)">
+      <div class="img-slot" style="position:absolute;inset:0;--img:url('https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=900&q=80');--fallback:linear-gradient(145deg,#F0D5D3 0%,#D4A5A0 50%,#A07070 100%)">
         <div class="img-layer"></div><div class="img-overlay"></div>
       </div>
     </div>
@@ -1317,7 +1305,7 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
   <!-- ② Brow — dark, reversed -->
   <div class="srv-panel dark rev">
     <div class="srv-visual-col">
-      <div class="img-slot" data-parallax="0.18" style="position:absolute;inset:0;--img:url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=900&q=80');--fallback:linear-gradient(135deg,#D4A0A0 0%,#9A6565 50%,#5A3535 100%)">
+      <div class="img-slot" style="position:absolute;inset:0;--img:url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=900&q=80');--fallback:linear-gradient(135deg,#D4A0A0 0%,#9A6565 50%,#5A3535 100%)">
         <div class="img-layer"></div><div class="img-overlay"></div>
       </div>
     </div>
@@ -1356,7 +1344,7 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
       </div>
     </div>
     <div class="srv-visual-col">
-      <div class="img-slot" data-parallax="0.18" style="position:absolute;inset:0;--img:url('https://images.unsplash.com/photo-1512207736890-6ffed8a84e8d?auto=format&fit=crop&w=900&q=80');--fallback:linear-gradient(155deg,#EDD0CC 0%,#C49090 50%,#906060 100%)">
+      <div class="img-slot" style="position:absolute;inset:0;--img:url('https://images.unsplash.com/photo-1512207736890-6ffed8a84e8d?auto=format&fit=crop&w=900&q=80');--fallback:linear-gradient(155deg,#EDD0CC 0%,#C49090 50%,#906060 100%)">
         <div class="img-layer"></div><div class="img-overlay"></div>
       </div>
     </div>
@@ -1365,7 +1353,7 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
   <!-- ④ Glam — dark, reversed -->
   <div class="srv-panel dark rev">
     <div class="srv-visual-col">
-      <div class="img-slot" data-parallax="0.18" style="position:absolute;inset:0;--img:url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=900&q=80');--fallback:linear-gradient(125deg,#C8A0A0 0%,#8A5858 50%,#4A2A2A 100%)">
+      <div class="img-slot" style="position:absolute;inset:0;--img:url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=900&q=80');--fallback:linear-gradient(125deg,#C8A0A0 0%,#8A5858 50%,#4A2A2A 100%)">
         <div class="img-layer"></div><div class="img-overlay"></div>
       </div>
     </div>
@@ -1412,17 +1400,17 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
 <!-- TRIPLE STRIP before gallery
      Add images via --img -->
 <div class="triple-strip">
-  <div class="img-slot" data-parallax="0.2"
+  <div class="img-slot"
        style="--img:url('https://images.unsplash.com/photo-1607748851687-ba9a1be8a730?auto=format&fit=crop&w=1200&q=80');--fallback:linear-gradient(145deg,#F0D0CC 0%,#C89090 100%)">
     <div class="img-layer"></div><div class="img-overlay"></div><div class="img-dim"></div>
     <div class="img-caption"><span>The Edit</span></div>
   </div>
-  <div class="img-slot" data-parallax="0.28"
+  <div class="img-slot"
        style="--img:url('https://images.unsplash.com/photo-1519415943484-9fa1873496d4?auto=format&fit=crop&w=1200&q=80');--fallback:linear-gradient(155deg,#E8C0BC 0%,#B87878 100%)">
     <div class="img-layer"></div><div class="img-overlay"></div><div class="img-dim"></div>
     <div class="img-caption"><span>Behind the Studio</span></div>
   </div>
-  <div class="img-slot" data-parallax="0.22"
+  <div class="img-slot"
        style="--img:url('https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=1200&q=80');--fallback:linear-gradient(135deg,#EAC8C4 0%,#A87070 100%)">
     <div class="img-layer"></div><div class="img-overlay"></div><div class="img-dim"></div>
     <div class="img-caption"><span>The Details</span></div>
@@ -1434,8 +1422,8 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
 ══════════════════════════ -->
 <section id="gallery">
   <div class="gal-head">
-    <span class="sec-label rose r">The Portfolio</span>
-    <h2 class="r d1">Artistry <em>in</em> motion —<br/>work that speaks.</h2>
+    <span class="sec-label rose">The Portfolio</span>
+    <h2 class="">Artistry <em>in</em> motion —<br/>work that speaks.</h2>
   </div>
   <div class="gal-grid">
 
@@ -1729,81 +1717,18 @@ function smoothTo(id,e){
   if(el) el.scrollIntoView({behavior:'smooth'});
 }
 
-/* ── HERO PARALLAX ── */
-window.addEventListener('scroll',()=>{
-  const y=window.scrollY,hb=document.querySelector('.hero-body'),vh=window.innerHeight;
-  if(hb&&y<vh){hb.style.transform=`translateY(${y*.26}px)`;hb.style.opacity=1-y/(vh*.62);}
-},{passive:true});
+
 
 /* ── DRAWER ── */
 
 
-/* ── SCROLL REVEAL ── */
-const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v');}),{threshold:.1});
-document.querySelectorAll('.r').forEach(el=>ro.observe(el));
+/* ── IMAGES: fade overlay when real photo is set ── */
 
-/* ─────────────────────────────────────────
-   PARALLAX IMAGE SYSTEM
-   Each .img-slot[data-parallax] gets its
-   .img-layer translated on scroll
-───────────────────────────────────────── */
-
-/* Pass 1 — mark has-img on EVERY img-slot that has --img set
-   (gallery cells don't have data-parallax but still need this) */
-document.querySelectorAll('.img-slot').forEach(slot=>{
-  const style=getComputedStyle(slot);
-  const img=style.getPropertyValue('--img').trim();
-  if(img && img!=='none' && img!=='') {
-    slot.classList.add('has-img');
-    const url=img.replace(/url\(['"]?|['"]?\)/g,'').trim();
-    if(url){ const i=new Image(); i.src=url; }
-  }
+/* ── IMAGES: mark has-img to fade overlay, nothing else ── */
+document.querySelectorAll('.img-slot').forEach(slot => {
+  const v = getComputedStyle(slot).getPropertyValue('--img').trim();
+  if (v && v !== 'none' && v !== '') slot.classList.add('has-img');
 });
-
-/* Pass 2 — register parallax slots */
-const parallaxSlots = [];
-document.querySelectorAll('.img-slot[data-parallax]').forEach(slot=>{
-  const layer = slot.querySelector('.img-layer');
-  if(!layer) return;
-  parallaxSlots.push({ slot, layer, speed: parseFloat(slot.dataset.parallax) || 0.2 });
-});
-
-/* Set initial positions immediately — no jump on first scroll */
-function getShift(slot, speed) {
-  const rect = slot.getBoundingClientRect();
-  const centre = rect.top + rect.height / 2 - window.innerHeight / 2;
-  const raw = centre * speed;
-  const maxShift = slot.offsetHeight * 0.20;
-  return Math.max(-maxShift, Math.min(maxShift, raw));
-}
-
-/* Apply transforms using translate3d for GPU compositing */
-function applyParallax() {
-  parallaxSlots.forEach(({ slot, layer, speed }) => {
-    const rect = slot.getBoundingClientRect();
-    if (rect.bottom < -100 || rect.top > window.innerHeight + 100) return;
-    const shift = getShift(slot, speed);
-    layer.style.transform = `translate3d(0, ${shift}px, 0)`;
-  });
-}
-
-/* Pre-position all layers before first paint */
-applyParallax();
-
-/* rAF loop — scroll sets a dirty flag, rAF does the actual DOM write */
-let rafPending = false;
-window.addEventListener('scroll', () => {
-  if (!rafPending) {
-    rafPending = true;
-    requestAnimationFrame(() => {
-      applyParallax();
-      rafPending = false;
-    });
-  }
-}, { passive: true });
-
-/* Also update on resize in case layout shifts */
-window.addEventListener('resize', applyParallax, { passive: true }); // initial call
 
 /* ── SERVICE TILT ── */
 document.querySelectorAll('.srv-panel').forEach(p=>{

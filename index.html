@@ -144,51 +144,42 @@
       }
 
       /* ── LOADER ── */
-      #loader {
-        position: fixed;
-        inset: 0;
-        background: var(--charcoal);
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        gap: 18px;
-        transition: opacity 0.9s var(--ease);
-      }
-      #loader.out {
-        opacity: 0;
-        pointer-events: none;
-      }
-      .ld-word {
-        font-family: var(--serif);
-        font-size: 1.3rem;
-        font-weight: 300;
-        letter-spacing: 0.36em;
-        color: var(--chalk);
-        text-transform: uppercase;
-        animation: ldp 1.8s ease-in-out infinite;
-      }
-      .ld-bar {
-        width: 70px;
-        height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          var(--rose),
-          transparent
-        );
-        animation: ldp 1.8s ease-in-out infinite reverse;
-      }
-      @keyframes ldp {
-        0%,
-        100% {
-          opacity: 0.3;
-        }
-        50% {
-          opacity: 1;
-        }
-      }
+#loader {
+  position:fixed; inset:0; background:var(--charcoal); z-index:9999;
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:14px;
+  transition:opacity 1.4s var(--ease);
+}
+#loader.out { opacity:0; pointer-events:none; }
+
+.ld-word {
+  font-family:var(--serif); font-size:clamp(2.8rem, 8vw, 6rem);
+  font-weight:300; letter-spacing:.28em; color:var(--chalk);
+  text-transform:uppercase;
+  animation:ldReveal 1.8s var(--ease) forwards;
+}
+.ld-sub {
+  font-family:var(--sans); font-size:.58rem; font-weight:400;
+  letter-spacing:.55em; text-transform:uppercase; color:var(--smoke);
+  animation:ldReveal 1.8s var(--ease) .3s both;
+}
+.ld-bar {
+  width:1px; height:48px;
+  background:linear-gradient(to bottom, transparent, var(--rose), transparent);
+  animation:ldBar 2s ease-in-out infinite;
+}
+.ld-bar:last-of-type {
+  animation-delay:.4s;
+}
+
+@keyframes ldReveal {
+  0%   { opacity:0; transform:translateY(12px); }
+  100% { opacity:1; transform:translateY(0); }
+}
+@keyframes ldBar {
+  0%,100% { opacity:0; transform:scaleY(.3); }
+  50%     { opacity:1; transform:scaleY(1); }
+}
 
   /* ═══════════════════════════════
    NAV
@@ -202,16 +193,14 @@
 }
 #nav::before {
   content:''; position:absolute; inset:0;
-  background:rgba(19,17,18,.0);
+  background:linear-gradient(to bottom, rgba(19,17,18,.45) 0%, transparent 100%);
   backdrop-filter:blur(0px);
-  border-bottom:1px solid rgba(255,255,255,0);
-  transition:background .6s ease, backdrop-filter .6s ease, border-color .6s ease;
+  transition:background .6s ease, backdrop-filter .6s ease;
   pointer-events:none; z-index:-1;
 }
 #nav.solid::before {
   background:rgba(19,17,18,.78);
   backdrop-filter:blur(18px) saturate(1.6);
-  border-color:var(--hairline);
 }
 #nav.solid {
   padding:18px 48px;
@@ -228,10 +217,10 @@
 .nav-links { display:flex; gap:32px; list-style:none; }
 .nav-links a {
   font-family:var(--sans); font-size:.64rem; font-weight:400;
-  letter-spacing:.22em; text-transform:uppercase; color:var(--fog);
-  text-decoration:none; transition:color .3s;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--chalk);
+  text-decoration:none; transition:color .3s; opacity:.75;
 }
-.nav-links a:hover { color:var(--chalk); }
+.nav-links a:hover {opacity: 1; color:var(--chalk); }
 
 #nav-book {
   font-family:var(--sans); font-size:.62rem; font-weight:500;
@@ -2039,6 +2028,29 @@
         text-transform: uppercase;
       }
 
+      /* ── BACK TO TOP ── */
+#btt {
+  position:fixed; bottom:36px; right:36px; z-index:7000;
+  width:46px; height:46px; border-radius:50%;
+  background:rgba(19,17,18,.7);
+  border:1px solid rgba(192,133,133,.35);
+  color:var(--rose); cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  backdrop-filter:blur(10px);
+  opacity:0; pointer-events:none;
+  transform:translateY(10px);
+  transition:opacity .4s var(--ease), transform .4s var(--ease),
+             border-color .3s, background .3s;
+}
+#btt.show { opacity:1; pointer-events:all; transform:translateY(0); }
+#btt:hover {
+  background:rgba(192,133,133,.15);
+  border-color:var(--rose);
+}
+@media(max-width:560px) {
+  #btt { bottom:22px; right:22px; width:40px; height:40px; }
+}
+
       /* ═══════════════════════════════
    RESPONSIVE
 ═══════════════════════════════ */
@@ -2216,10 +2228,11 @@
   </head>
   <body>
     <div id="loader">
-      <div class="ld-bar"></div>
-      <div class="ld-word">Lumière</div>
-      <div class="ld-bar"></div>
-    </div>
+  <div class="ld-bar"></div>
+  <div class="ld-word">Lumière</div>
+  <div class="ld-bar"></div>
+  <span class="ld-sub">Collective</span>
+</div>
     <div class="grain"></div>
     <div id="cur-dot"></div>
     <div id="cur-ring"></div>
@@ -3455,18 +3468,21 @@
         <p>Crafted with intention.</p>
       </div>
     </footer>
+    <button id="btt" aria-label="Back to top">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <line x1="12" y1="19" x2="12" y2="5"/>
+    <polyline points="5 12 12 5 19 12"/>
+  </svg>
+</button>
 
     <!-- ══════════════════════════════════════
      SCRIPTS
 ══════════════════════════════════════ -->
     <script>
       /* ── LOADER ── */
-      window.addEventListener("load", () =>
-        setTimeout(
-          () => document.getElementById("loader").classList.add("out"),
-          1180,
-        ),
-      );
+window.addEventListener('load', () =>
+  setTimeout(() => document.getElementById('loader').classList.add('out'), 2600)
+);
 
       /* ── CURSOR ── */
       const dot = document.getElementById("cur-dot"),
@@ -3499,16 +3515,21 @@
           );
         });
 
-      /* ── NAV ── */
+     /* ── NAV ── */
 const nav = document.getElementById('nav');
-
-const navSentinel = document.createElement('div');
-navSentinel.style.cssText = 'position:absolute;top:80vh;left:0;width:1px;height:1px;pointer-events:none;';
-document.body.prepend(navSentinel);
+const navSentinel = document.querySelector('#visual-strip');
 
 new IntersectionObserver(([e]) => {
   nav.classList.toggle('solid', !e.isIntersecting);
 }, { threshold: 0 }).observe(navSentinel);
+
+/* ── BACK TO TOP ── */
+const btt = document.getElementById('btt');
+new IntersectionObserver(([e]) => {
+  btt.classList.toggle('show', !e.isIntersecting);
+}, { threshold: 0 }).observe(navSentinel);
+
+btt.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
 
       /* ── HERO SCROLL (Explore button) ── */
       function smoothTo(id, e) {

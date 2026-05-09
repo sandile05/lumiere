@@ -264,19 +264,35 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
   display:flex; align-items:center; justify-content:center;
   overflow:hidden; background:var(--charcoal);
 }
-#three-canvas { position:absolute; inset:0; width:100%; height:100%; }
+
+.hero-bg-layer {
+  position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 55% at 30% 60%, rgba(192,133,133,.13) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 40% at 72% 35%, rgba(234,201,199,.09) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(140,85,85,.12) 0%, transparent 55%);
+  animation:hbPulse 9s ease-in-out infinite alternate;
+}
+@keyframes hbPulse {
+  0%   { opacity:.7; transform:scale(1); }
+  100% { opacity:1;  transform:scale(1.04); }
+}
+
 .hero-vignette {
   position:absolute; inset:0; pointer-events:none;
   background:radial-gradient(ellipse 78% 78% at 50% 50%, transparent 20%, rgba(19,17,18,.8) 100%);
 }
-/* extra pink glow bottom */
+
 .hero-pink-glow {
   position:absolute; bottom:-10%; left:50%; transform:translateX(-50%);
   width:70%; height:40%;
   background:radial-gradient(ellipse at 50% 100%, rgba(192,133,133,.18) 0%, transparent 70%);
   pointer-events:none;
 }
-.hero-body { position:relative; z-index:10; text-align:center; padding:80px 24px 0; }
+
+.hero-body {
+  position:relative; z-index:10; text-align:center; padding:80px 24px 0;
+}
 
 .hero-eyebrow {
   font-family:var(--sans); font-size:.58rem; font-weight:400;
@@ -284,6 +300,7 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
   opacity:0; transform:translateY(14px);
   animation:revUp 1.2s var(--ease) .6s forwards;
 }
+
 .hero-title {
   font-family:var(--serif); font-weight:300; line-height:.88;
   font-size:clamp(3.4rem, 10vw, 8.5rem);
@@ -292,6 +309,7 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
   animation:revUp 1.5s var(--ease) 1s forwards;
 }
 .hero-title em { font-style:italic; color:var(--blush); }
+
 .hero-sub {
   font-family:var(--italic); font-style:italic; font-weight:300;
   font-size:clamp(.9rem, 1.8vw, 1.2rem); color:var(--smoke);
@@ -300,31 +318,35 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
   animation:revUp 1.2s var(--ease) 1.5s forwards;
 }
 
-/* Clickable explore scroll trigger */
 .hero-scroll-btn {
   display:inline-flex; flex-direction:column; align-items:center; gap:10px;
   margin-top:48px; background:none; border:none; cursor:pointer;
   text-decoration:none;
   opacity:0; animation:revUp 1s var(--ease) 2.2s forwards;
 }
-.hero-scroll-btn:hover .hero-scroll-line { background:linear-gradient(to bottom, var(--pink-pop), transparent); }
+.hero-scroll-btn:hover .hero-scroll-line {
+  background:linear-gradient(to bottom, var(--pink-pop), transparent);
+}
 .hero-scroll-btn:hover .hero-scroll-label { color:var(--blush); }
+
 .hero-scroll-line {
   width:1px; height:52px;
   background:linear-gradient(to bottom, var(--rose), transparent);
   animation:lineGrow 2.2s ease-in-out 2.8s infinite;
 }
+
 .hero-scroll-label {
   font-family:var(--sans); font-size:.55rem; letter-spacing:.3em;
   text-transform:uppercase; color:var(--smoke);
   transition:color .3s;
 }
+
 @keyframes revUp  { to { opacity:1; transform:translateY(0); } }
 @keyframes lineGrow {
-  0%,100%{transform:scaleY(0);transform-origin:top;opacity:0}
-  40%{transform:scaleY(1);transform-origin:top;opacity:1}
-  60%{transform:scaleY(1);transform-origin:bottom;opacity:1}
-  90%{transform:scaleY(0);transform-origin:bottom;opacity:0}
+  0%,100% { transform:scaleY(0); transform-origin:top;    opacity:0; }
+  40%     { transform:scaleY(1); transform-origin:top;    opacity:1; }
+  60%     { transform:scaleY(1); transform-origin:bottom; opacity:1; }
+  90%     { transform:scaleY(0); transform-origin:bottom; opacity:0; }
 }
 
 /* IMAGE SLOT */
@@ -1142,21 +1164,19 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
 <!-- ══════════════════════════
      HERO
 ══════════════════════════ -->
-<!-- <section id="hero">
-  <canvas id="three-canvas"></canvas>
+<section id="hero">
   <div class="hero-vignette"></div>
-  <div class="hero-pink-glow"></div>
+  <div class="hero-bg-layer"></div>
   <div class="hero-body">
     <p class="hero-eyebrow">A Curated Collective of Beauty Specialists</p>
     <h1 class="hero-title">LUMIÈRE<br/><em>Collective</em></h1>
     <p class="hero-sub">Where artistry becomes ritual, and beauty becomes legacy.</p>
-   
     <a class="hero-scroll-btn" href="#visual-strip" onclick="smoothTo('visual-strip',event)">
       <div class="hero-scroll-line"></div>
       <span class="hero-scroll-label">Explore</span>
     </a>
   </div>
-</section> -->
+</section>
 
 <!-- ══════════════════════════
      FIRST VISUAL STRIP
@@ -1641,7 +1661,7 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
     </div>
   </div>
   <div class="ft-bottom">
-    <p>© 2025 Lumière Collective. All rights reserved.</p>
+    <p>© 2026 Lumière Collective. All rights reserved.</p>
     <div class="ft-logo">Lumière</div>
     <p>Crafted with intention.</p>
   </div>
@@ -1652,46 +1672,7 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
 ══════════════════════════════════════ -->
 <script>
 /* ── LOADER ── */
-window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('out'), 1300));
-
-/* ── THREE.JS — pink particle field ── */
-// (function(){
-//   const canvas = document.getElementById('three-canvas');
-//   const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
-//   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-//   renderer.setSize(window.innerWidth, window.innerHeight);
-//   renderer.setClearColor(0x131112, 1);
-//   const scene = new THREE.Scene();
-//   const camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 0.1, 100);
-//   camera.position.z = 5;
-//   const N = 1400, pos = new Float32Array(N*3), col = new Float32Array(N*3);
-//   const pal = [0xE8C4C0,0xC08585,0xF5E8E5,0xB87070,0xFDF6F4].map(h=>new THREE.Color(h));
-//   for(let i=0;i<N;i++){
-//     pos[i*3]=(Math.random()-.5)*18; pos[i*3+1]=(Math.random()-.5)*12; pos[i*3+2]=(Math.random()-.5)*8;
-//     const c=pal[Math.floor(Math.random()*pal.length)];
-//     col[i*3]=c.r; col[i*3+1]=c.g; col[i*3+2]=c.b;
-//   }
-//   const geo = new THREE.BufferGeometry();
-//   geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
-//   geo.setAttribute('color',new THREE.BufferAttribute(col,3));
-//   const mat = new THREE.PointsMaterial({size:.032,vertexColors:true,transparent:true,opacity:.42,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true});
-//   scene.add(new THREE.Points(geo,mat));
-//   [[2.0,0xE9CBCA,.016,0,0],[1.4,0xC08585,.02,2,-1]].forEach(([r,hex,op,x,y])=>{
-//     const m=new THREE.Mesh(new THREE.SphereGeometry(r,24,24),new THREE.MeshBasicMaterial({color:hex,transparent:true,opacity:op,blending:THREE.AdditiveBlending}));
-//     m.position.set(x,y,0); scene.add(m);
-//   });
-//   let mx=0,my=0;
-//   document.addEventListener('mousemove',e=>{mx=(e.clientX/window.innerWidth-.5)*2;my=(e.clientY/window.innerHeight-.5)*2;});
-//   const pts=scene.children[0],clock=new THREE.Clock();
-//   (function anim(){
-//     requestAnimationFrame(anim);
-//     const t=clock.getElapsedTime();
-//     pts.rotation.y=t*.02+mx*.04; pts.rotation.x=t*.011+my*.025;
-//     mat.opacity=.36+Math.sin(t*.4)*.09;
-//     renderer.render(scene,camera);
-//   })();
-//   window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);});
-// })();
+window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('out'), 1180));
 
 /* ── CURSOR ── */
 const dot=document.getElementById('cur-dot'),ring=document.getElementById('cur-ring');
@@ -1745,16 +1726,16 @@ const COLS=[
   {cat:'Nail Artistry',title:'Nail Artistry Collection',desc:'Sculptured acrylics, gel systems and intricate hand-painted nail art — each set a bespoke wearable canvas.',pieces:'32 works · 2024 Portfolio',svc:'nail',
    img:'./nail-art.jpeg',
    bg:'linear-gradient(145deg,#EDD9D6 0%,#C09090 60%,#8A5858 100%)',label:'nail artistry'},
-  {cat:'Brow Architecture',title:'Brow Architecture Sessions',desc:'Precision mapping, shaping, tinting and lamination — every brow a unique architectural element.',pieces:'18 works · 2024 Portfolio',svc:'brow',
+  {cat:'Brow Architecture',title:'Brow Architecture Sessions',desc:'Precision mapping, shaping, tinting and lamination — every brow a unique architectural element.',pieces:'18 works · 2026 Portfolio',svc:'brow',
    img:'./brow3.jpeg',
    bg:'linear-gradient(135deg,#E5D5D2 0%,#CBAEAA 100%)',label:'brow architecture'},
-  {cat:'Lash Enhancement',title:'Lash Enhancement Portfolio',desc:'Classic, hybrid and dramatic volume alongside lash lifts — eyes that command attention effortlessly.',pieces:'26 works · 2024 Portfolio',svc:'lash',
+  {cat:'Lash Enhancement',title:'Lash Enhancement Portfolio',desc:'Classic, hybrid and dramatic volume alongside lash lifts — eyes that command attention effortlessly.',pieces:'26 works · 2026 Portfolio',svc:'lash',
    img:'./lash3.jpeg',
    bg:'linear-gradient(160deg,#D8C8C5 0%,#B09090 100%)',label:'lash enhancements'},
-  {cat:'Soft Glam',title:'Soft Glam Transformations',desc:'Editorial makeup from luminous everyday softness to striking occasion glamour.',pieces:'24 works · 2024 Portfolio',svc:'glam',
+  {cat:'Soft Glam',title:'Soft Glam Transformations',desc:'Editorial makeup from luminous everyday softness to striking occasion glamour.',pieces:'24 works · 2026 Portfolio',svc:'glam',
    img:'./glam3.jpeg',
    bg:'linear-gradient(125deg,#E2CFCC 0%,#C09090 100%)',label:'soft glam'},
-  {cat:'Hair Installations',title:'Hair Installation Gallery',desc:'Custom wig installs, weave applications and protective styles — flawless and undetectable.',pieces:'21 works · 2024 Portfolio',svc:'hair',
+  {cat:'Hair Installations',title:'Hair Installation Gallery',desc:'Custom wig installs, weave applications and protective styles — flawless and undetectable.',pieces:'21 works · 2026 Portfolio',svc:'hair',
    img:'./hair3.jpeg',
    bg:'linear-gradient(145deg,#DACAC7 0%,#A88888 100%)',label:'hair installations'},
 ];

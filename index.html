@@ -1142,21 +1142,21 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
 <!-- ══════════════════════════
      HERO
 ══════════════════════════ -->
-<section id="hero">
-  <!-- <canvas id="three-canvas"></canvas>
-  <div class="hero-vignette"></div> -->
+<!-- <section id="hero">
+  <canvas id="three-canvas"></canvas>
+  <div class="hero-vignette"></div>
   <div class="hero-pink-glow"></div>
   <div class="hero-body">
     <p class="hero-eyebrow">A Curated Collective of Beauty Specialists</p>
     <h1 class="hero-title">LUMIÈRE<br/><em>Collective</em></h1>
     <p class="hero-sub">Where artistry becomes ritual, and beauty becomes legacy.</p>
-    <!-- Clickable scroll trigger -->
+   
     <a class="hero-scroll-btn" href="#visual-strip" onclick="smoothTo('visual-strip',event)">
       <div class="hero-scroll-line"></div>
       <span class="hero-scroll-label">Explore</span>
     </a>
   </div>
-</section>
+</section> -->
 
 <!-- ══════════════════════════
      FIRST VISUAL STRIP
@@ -1655,43 +1655,43 @@ body.cur-lg #cur-ring {width:50px;height:50px;border-color:rgba(192,133,133,.7)}
 window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('out'), 1300));
 
 /* ── THREE.JS — pink particle field ── */
-(function(){
-  const canvas = document.getElementById('three-canvas');
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setClearColor(0x131112, 1);
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 0.1, 100);
-  camera.position.z = 5;
-  const N = 1400, pos = new Float32Array(N*3), col = new Float32Array(N*3);
-  const pal = [0xE8C4C0,0xC08585,0xF5E8E5,0xB87070,0xFDF6F4].map(h=>new THREE.Color(h));
-  for(let i=0;i<N;i++){
-    pos[i*3]=(Math.random()-.5)*18; pos[i*3+1]=(Math.random()-.5)*12; pos[i*3+2]=(Math.random()-.5)*8;
-    const c=pal[Math.floor(Math.random()*pal.length)];
-    col[i*3]=c.r; col[i*3+1]=c.g; col[i*3+2]=c.b;
-  }
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
-  geo.setAttribute('color',new THREE.BufferAttribute(col,3));
-  const mat = new THREE.PointsMaterial({size:.032,vertexColors:true,transparent:true,opacity:.42,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true});
-  scene.add(new THREE.Points(geo,mat));
-  [[2.0,0xE9CBCA,.016,0,0],[1.4,0xC08585,.02,2,-1]].forEach(([r,hex,op,x,y])=>{
-    const m=new THREE.Mesh(new THREE.SphereGeometry(r,24,24),new THREE.MeshBasicMaterial({color:hex,transparent:true,opacity:op,blending:THREE.AdditiveBlending}));
-    m.position.set(x,y,0); scene.add(m);
-  });
-  let mx=0,my=0;
-  document.addEventListener('mousemove',e=>{mx=(e.clientX/window.innerWidth-.5)*2;my=(e.clientY/window.innerHeight-.5)*2;});
-  const pts=scene.children[0],clock=new THREE.Clock();
-  (function anim(){
-    requestAnimationFrame(anim);
-    const t=clock.getElapsedTime();
-    pts.rotation.y=t*.02+mx*.04; pts.rotation.x=t*.011+my*.025;
-    mat.opacity=.36+Math.sin(t*.4)*.09;
-    renderer.render(scene,camera);
-  })();
-  window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);});
-})();
+// (function(){
+//   const canvas = document.getElementById('three-canvas');
+//   const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+//   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   renderer.setClearColor(0x131112, 1);
+//   const scene = new THREE.Scene();
+//   const camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 0.1, 100);
+//   camera.position.z = 5;
+//   const N = 1400, pos = new Float32Array(N*3), col = new Float32Array(N*3);
+//   const pal = [0xE8C4C0,0xC08585,0xF5E8E5,0xB87070,0xFDF6F4].map(h=>new THREE.Color(h));
+//   for(let i=0;i<N;i++){
+//     pos[i*3]=(Math.random()-.5)*18; pos[i*3+1]=(Math.random()-.5)*12; pos[i*3+2]=(Math.random()-.5)*8;
+//     const c=pal[Math.floor(Math.random()*pal.length)];
+//     col[i*3]=c.r; col[i*3+1]=c.g; col[i*3+2]=c.b;
+//   }
+//   const geo = new THREE.BufferGeometry();
+//   geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+//   geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+//   const mat = new THREE.PointsMaterial({size:.032,vertexColors:true,transparent:true,opacity:.42,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true});
+//   scene.add(new THREE.Points(geo,mat));
+//   [[2.0,0xE9CBCA,.016,0,0],[1.4,0xC08585,.02,2,-1]].forEach(([r,hex,op,x,y])=>{
+//     const m=new THREE.Mesh(new THREE.SphereGeometry(r,24,24),new THREE.MeshBasicMaterial({color:hex,transparent:true,opacity:op,blending:THREE.AdditiveBlending}));
+//     m.position.set(x,y,0); scene.add(m);
+//   });
+//   let mx=0,my=0;
+//   document.addEventListener('mousemove',e=>{mx=(e.clientX/window.innerWidth-.5)*2;my=(e.clientY/window.innerHeight-.5)*2;});
+//   const pts=scene.children[0],clock=new THREE.Clock();
+//   (function anim(){
+//     requestAnimationFrame(anim);
+//     const t=clock.getElapsedTime();
+//     pts.rotation.y=t*.02+mx*.04; pts.rotation.x=t*.011+my*.025;
+//     mat.opacity=.36+Math.sin(t*.4)*.09;
+//     renderer.render(scene,camera);
+//   })();
+//   window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);});
+// })();
 
 /* ── CURSOR ── */
 const dot=document.getElementById('cur-dot'),ring=document.getElementById('cur-ring');
